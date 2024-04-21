@@ -40,7 +40,7 @@ jobs:
     - name: Docker login
       run: |
         docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
-    - name: Build user service docker image
+    - name: Build product service docker image
       run: |
         cd product_service
         docker build . --file Dockerfile --tag $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
