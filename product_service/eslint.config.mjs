@@ -11,5 +11,5 @@ const compat = new FlatCompat( { baseDirectory: _DRINAME, recommendedConfig: plu
 
 export default [
   { languageOptions: { globals: globals.browser } },
-  ...compat.extends("standard-with-typescript")
+  ...compat.extends( 'standard-with-typescript' )
 ]
