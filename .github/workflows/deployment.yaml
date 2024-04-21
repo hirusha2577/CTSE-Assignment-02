@@ -5,7 +5,7 @@ on:
     branches: [ code_setup ]
   workflow_dispatch:
 
-  env:
+env:
   DOCKER_USER_NAME: ${{secrets.DOCKER_USER_NAME}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   PRODUCT_REPO_NAME: ${{secrets.PRODUCT_REPO_NAME}}
