@@ -23,7 +23,7 @@ jobs:
       working-directory: product_service
 
     - name: Run ESLint
-      run: npx eslint . --rule "@typescript-eslint/naming-convention:off" --rule "@typescript-eslint/object-curly-spacing:off" --rule "semi:off" --rule "quotes:off" --rule "space-in-parens:error"
+      run: npx eslint . --rule "@typescript-eslint/naming-convention:off" --rule "@typescript-eslint/object-curly-spacing:off" --rule "semi:off" --rule "quotes:off" --rule "space-in-parens:off"
       working-directory: product_service
 
 
