@@ -1,12 +1,24 @@
-FROM node:14.18-alpine AS BUILD_IMAGE
-RUN apk add --no-cache nodejs npm
-WORKDIR /product_service
-COPY ./package.json ./package-lock.json ./
-RUN npm install
-COPY . .
-FROM node:14.18-alpine
+# Common build stage
+FROM node:16-alpine3.14 as common-build-stage
+
+COPY . ./app
+
 WORKDIR /app
-COPY --from=BUILD_IMAGE /product_service /app/
+
+RUN npm install
+
 EXPOSE 8082
-ENTRYPOINT [ "npm", "run" ]
-CMD [ "start" ]
+
+# Development build stage
+FROM common-build-stage as development-build-stage
+
+ENV NODE_ENV development
+
+CMD ["npm", "run", "dev"]
+
+# Production build stage
+FROM common-build-stage as production-build-stage
+
+ENV NODE_ENV production
+
+CMD ["npm", "run", "start"]
