@@ -1,6 +1,6 @@
-import { CreateProductDto } from '../dtos/product.dto';
+import type { CreateProductDto } from '../dtos/product.dto';
 import { HttpException } from '../exceptions/HttpException';
-import { Product } from '@/interfaces/product.interface';
+import type { Product } from '@/interfaces/product.interface';
 import productModel from '../models/product.model';
 import { isEmpty } from '../utils/util';
 

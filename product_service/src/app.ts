@@ -7,7 +7,7 @@ import hpp from 'hpp';
 import { connect, set } from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { Routes } from './interfaces/routes.interface';
+import type { Routes } from './interfaces/routes.interface';
 
 class App {
   public app: express.Application;

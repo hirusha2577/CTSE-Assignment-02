@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IsArray, IsEmpty, IsNotEmpty, IsObject, IsString } from 'class-validator';
 
 export class CreateProductDto {

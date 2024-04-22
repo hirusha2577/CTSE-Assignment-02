@@ -1,6 +1,7 @@
 import { plainToClass } from 'class-transformer';
-import { validate, ValidationError } from 'class-validator';
-import { RequestHandler } from 'express';
+import type { ValidationError } from 'class-validator';
+import { validate } from 'class-validator';
+import type { RequestHandler } from 'express';
 import { HttpException } from '../exceptions/HttpException';
 
 const validationMiddleware = (

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import productController from '../controllers/product.controller';
 import { CreateProductDto } from '../dtos/product.dto';
-import { Routes } from '../interfaces/routes.interface';
+import type { Routes } from '../interfaces/routes.interface';
 import validationMiddleware from '../middlewares/validation.middleware';
 import multer from 'multer';
 import { storage } from '../cloudinary/index.js';

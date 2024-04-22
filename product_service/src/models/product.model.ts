@@ -1,5 +1,6 @@
-import { model, Schema, Document } from 'mongoose';
-import { Product } from '../interfaces/product.interface';
+import type { Document } from 'mongoose';
+import { model, Schema } from 'mongoose';
+import type { Product } from '../interfaces/product.interface';
 
 const productSchema: Schema = new Schema({
   categoryId: {

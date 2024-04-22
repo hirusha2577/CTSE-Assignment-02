@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-import { CreateProductDto } from '../dtos/product.dto';
-import { Product } from '../interfaces/product.interface';
+import type { NextFunction, Request, Response } from 'express';
+import type { CreateProductDto } from '../dtos/product.dto';
+import type { Product } from '../interfaces/product.interface';
 import productService from '../services/product.service';
 import productModel from '../models/product.model';
 interface MulterRequest extends Request {
@@ -56,7 +56,7 @@ class ProductController {
       if (req.file !== undefined) {
         image = req.file.path;
       }
-      let newProduct = new productModel({
+      const newProduct = new productModel({
         categoryId,
         subCategoryId,
         name,
