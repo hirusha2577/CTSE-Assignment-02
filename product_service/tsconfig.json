@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.json",
   "compileOnSave": false,
   "compilerOptions": {
     "target": "es2022",
@@ -36,6 +37,6 @@
       "@utils/*": ["utils/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/**/*", "*.mjs"],
+  "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/**/*"],
   "exclude": ["node_modules", "src/http", "src/logs", "src/tests"]
 }
