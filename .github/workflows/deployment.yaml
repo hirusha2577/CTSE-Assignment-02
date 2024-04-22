@@ -30,25 +30,12 @@ jobs:
     - name: Install dependencies
       run: npm install
       working-directory: product_service
+    - name: Run npm audit
+      run: npm audit 
+      working-directory: product_service
     - name: Run ESLint
       run: npx eslint . --rule "@typescript-eslint/naming-convention:off" --rule "@typescript-eslint/object-curly-spacing:off" --rule "semi:off" --rule "quotes:off" --rule "space-in-parens:off"
       working-directory: product_service
-
-  scan:
-    name: npm audit
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: install dependencies
-        run: npm audit
-        working-directory: product_service
-      - uses: oke-py/npm-audit-action@v2
-        with:
-          audit_level: moderate
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          issue_assignees: oke-py
-          issue_labels: vulnerability,test
-          dedupe_issues: true    
 
   product-service:
     runs-on: ubuntu-latest
