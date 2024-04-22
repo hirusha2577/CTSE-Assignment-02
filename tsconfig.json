@@ -18,6 +18,7 @@
         "resolveJsonModule": true,
         "strictNullChecks":true,
         "importHelpers": true,
+        "outDir": "./dist"
       },
       "include": ["./**/*.ts", "./**/*.json", ".env"],
       "exclude": ["node_modules", "**/dist", "**/node_modules", "**/tests", "*.mjs"]
