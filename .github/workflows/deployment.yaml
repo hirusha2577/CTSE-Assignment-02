@@ -29,6 +29,8 @@ jobs:
     - name: Install dependencies
       run: npm install
       working-directory: product_service
+    - name: Run npm audit
+      run: npm audit --audit-level=high
     - name: Run ESLint
       run: npx eslint . --rule "@typescript-eslint/naming-convention:off" --rule "@typescript-eslint/object-curly-spacing:off" --rule "semi:off" --rule "quotes:off" --rule "space-in-parens:off"
       working-directory: product_service
@@ -49,14 +51,6 @@ jobs:
         docker build . --file Dockerfile --tag $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
     - name: Push user service docker image
       run: docker push $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
-
-    # - name: Docker Scout Scan
-    #   run: |
-    #     curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
-    #     sh install-scout.sh
-    #     echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USER_NAME }} --password-stdin
-    #     docker scout quickview
-    #     docker scout cves  
 
     - name: Docker Scout
       id: docker-scout
