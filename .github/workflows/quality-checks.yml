@@ -1,4 +1,4 @@
-name: Lint Code
+name: Quality Checks
 
 on: [push, pull_request]
 

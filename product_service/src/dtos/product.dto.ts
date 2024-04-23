@@ -3,10 +3,10 @@ import { IsArray, IsEmpty, IsNotEmpty, IsObject, IsString } from 'class-validato
 
 export class CreateProductDto {
   // @IsArray()
-  public categoryId: true;
+  public categoryId: Array<string>;
 
   // @IsArray()
-  public subCategoryId: true;
+  public subCategoryId: Array<string>;
 
   // @IsString()
   public name: string;

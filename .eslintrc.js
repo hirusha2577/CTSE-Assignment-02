@@ -36,4 +36,8 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'warn',
     'no-restricted-imports': ['warn', { patterns: ['../*'] }],
   },
+  env: {
+    node: true,
+    jest: true,
+  },
 };
