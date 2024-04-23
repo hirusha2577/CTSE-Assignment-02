@@ -1,4 +1,4 @@
-name: Quality Checks
+name: Run tests
 
 on: [pull_request]
 
