@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-import { CreateProductDto } from '../dtos/product.dto';
-import { Product } from '../interfaces/product.interface';
+import type { NextFunction, Request, Response } from 'express';
+import type { CreateProductDto } from '../dtos/product.dto';
+import type { Product } from '../interfaces/product.interface';
 import productService from '../services/product.service';
 import productModel from '../models/product.model';
 interface MulterRequest extends Request {
@@ -34,7 +34,10 @@ class ProductController {
     try {
       const categoryId: string = req.params.categoryId;
       const subCategoryId: string = req.params.subCategoryId;
-      const findProductData: Product[] = await this.productService.findProductByCategoryIdAndSubCategoryId(categoryId,subCategoryId);
+      const findProductData: Product[] = await this.productService.findProductByCategoryIdAndSubCategoryId(
+        categoryId,
+        subCategoryId,
+      );
 
       res.status(200).json({ data: findProductData, message: 'findOne' });
     } catch (error) {
@@ -44,18 +47,23 @@ class ProductController {
 
   public createProduct = async (req: MulterRequest, res: Response, next: NextFunction) => {
     try {
-    const categoryId = req.body.categoryId.split(",");
-    const subCategoryId = req.body.subCategoryId.split(",");
-    const name = req.body.name;
-    const description = req.body.description;
-    const price = req.body.price;
-    let image = "";
-    if (req.file !== undefined) {
-        image = req.file.path
-    }
-    let newProduct = new productModel({
-      categoryId, subCategoryId, name, description, price, image
-  })
+      const categoryId = req.body.categoryId.split(',');
+      const subCategoryId = req.body.subCategoryId.split(',');
+      const name = req.body.name;
+      const description = req.body.description;
+      const price = req.body.price;
+      let image = '';
+      if (req.file !== undefined) {
+        image = req.file.path;
+      }
+      const newProduct = new productModel({
+        categoryId,
+        subCategoryId,
+        name,
+        description,
+        price,
+        image,
+      });
 
       const createProductData: Product = await this.productService.createProduct(newProduct);
 

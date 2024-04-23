@@ -1,4 +1,5 @@
 {
+  "extends": "../tsconfig.json",
   "compileOnSave": false,
   "compilerOptions": {
     "target": "es2022",
@@ -18,7 +19,7 @@
     "noEmit": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "strictNullChecks":true,
+    "strictNullChecks": true,
     "importHelpers": true,
     "baseUrl": "src",
     "paths": {
@@ -36,6 +37,6 @@
       "@utils/*": ["utils/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/**/*", "*.mjs"],
+  "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "src/http", "src/logs", "src/tests"]
 }

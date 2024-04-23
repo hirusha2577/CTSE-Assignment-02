@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "es2022",
+        "lib": ["es2022", "esnext.asynciterable"],
+        "typeRoots": ["node_modules/@types"],
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "pretty": true,
+        "sourceMap": true,
+        "declaration": true,
+        "allowJs": true,
+        "noEmit": false,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "strictNullChecks":true,
+        "importHelpers": true,
+        "outDir": "./dist",
+        "noImplicitAny": false
+      },
+      "include": ["./**/*.ts", "./**/*.json", ".env", "**/tests/**/*.{ts,js}"],
+      "exclude": ["node_modules", "**/dist", "**/node_modules", "*.mjs"]
+}

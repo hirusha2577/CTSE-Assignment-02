@@ -1,0 +1,20 @@
+name: Run tests
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [product_service]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '20' # Or the version you're using
+      - name: Install dependencies
+        run: cd ${{ matrix.service }} && npm install
+      - name: Run tests
+        run: cd ${{ matrix.service }} && npm test
