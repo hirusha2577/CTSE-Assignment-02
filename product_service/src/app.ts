@@ -8,6 +8,9 @@ import { connect, set } from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import type { Routes } from './interfaces/routes.interface';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 class App {
   public app: express.Application;
@@ -17,9 +20,9 @@ class App {
 
   constructor(routes: Routes[]) {
     this.app = express();
-    this.port = 8082;
+    this.port = Number(process.env.PORT) || 8082;
     this.hostName = '127.0.0.1';
-    this.url = 'mongodb+srv://hirusha:hirusha@e-commerce-system.zfvw1fj.mongodb.net/?retryWrites=true&w=majority';
+    this.url = process.env.MONGO_DB_URL || '';
 
     this.connectToDatabase();
     this.initializeMiddlewares();
