@@ -6,9 +6,18 @@ jobs:
   scan:
     name: Security Scan
     runs-on: ubuntu-latest
-    steps:
+    steps:    
       - name: Check out code
         uses: actions/checkout@v3
+
+      - name: Run gitleaks security scan
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
       - name: Run Docker Scout security scan
         id: docker-scout
@@ -27,15 +36,6 @@ jobs:
         with:
           name: docker-scout-findings
           path: scout-report.sarif
-
-      - name: Run gitleaks security scan
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
