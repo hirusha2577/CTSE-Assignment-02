@@ -7,92 +7,56 @@ env:
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   PRODUCT_REPO_NAME: ${{secrets.PRODUCT_REPO_NAME}}
 
-# jobs:
-#   scan:
-#     name: Security Scan
-#     runs-on: ubuntu-latest
-#     steps:    
-#       - name: Check out code
-#         uses: actions/checkout@v3
-
-#       - name: Run gitleaks security scan
-#         uses: actions/checkout@v3
-#         with:
-#           fetch-depth: 0
-#       - name: Gitleaks
-#         uses: gitleaks/gitleaks-action@v2
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-
-#       - name: Set up Docker
-#         uses: docker-practice/actions-setup-docker@master
-#       - name: Docker login
-#         run: |
-#           docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
-#       - name: Build product service docker image
-#         run: |
-#           cd product_service
-#           docker build . --file Dockerfile --tag $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
-#       - name: Push product service docker image
-#         run: docker push $DOCKER_USER_NAME/$PRODUCT_REPO_NAME    
-
-#       - name: Run Docker Scout security scan
-#         id: docker-scout
-#         uses: docker/scout-action@v1
-#         with:
-#           command: quickview,cves,recommendations
-#           only-severities: critical,high
-#           sarif-file: scout-report.sarif
-#           to-latest: true
-#           ignore-base: true
-#           ignore-unchanged: true
-#           only-fixed: true
-
-#       - name: Upload Docker Scout report
-#         uses: actions/upload-artifact@v3
-#         if: always()
-#         with:
-#           name: docker-scout-findings
-#           path: scout-report.sarif
-
 jobs:
-  scan:
-    name: Gitleaks security scan
-    runs-on: ubuntu-latest
+
+  oast_npm_audit:
+    runs-on: buntu-latest
     steps:
-      - name: Checkout code
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Set up Node js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - run: npm install
+      - run: npm audit --json | tee npm_audit_report.json
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nmp_audit
+          path: npm_audit_report.json
+
+
+  scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:    
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Run gitleaks security scan
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Gitleaks    
+      - name: Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
-  product-service:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Set up Docker
-      uses: docker-practice/actions-setup-docker@master
-    - name: Docker login
-      run: |
-        docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
-    - name: Build product service docker image
-      run: |
-        cd product_service
-        docker build . --file Dockerfile --tag $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
-    - name: Push user service docker image
-      run: docker push $DOCKER_USER_NAME/$PRODUCT_REPO_NAME                
+      - name: Set up Docker
+        uses: docker-practice/actions-setup-docker@master
+      - name: Docker login
+        run: |
+          docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
+      - name: Build product service docker image
+        run: |
+          cd product_service
+          docker build . --file Dockerfile --tag $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
+      - name: Push product service docker image
+        run: docker push $DOCKER_USER_NAME/$PRODUCT_REPO_NAME    
 
-  scan:
-    name: Docker Scout security scan
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    - name: Run Docker Scout security scan
+      - name: Run Docker Scout security scan
         id: docker-scout
         uses: docker/scout-action@v1
         with:
@@ -104,14 +68,11 @@ jobs:
           ignore-unchanged: true
           only-fixed: true
 
-  security-report:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    - name: Upload Docker Scout report
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: docker-scout-findings
-        path: scout-report.sarif
+      - name: Upload Docker Scout report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: docker-scout-findings
+          path: scout-report.sarif
+
+
