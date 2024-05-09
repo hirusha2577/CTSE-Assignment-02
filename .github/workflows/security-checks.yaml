@@ -2,6 +2,11 @@ name: Security Checks
 
 on: [push, pull_request]
 
+env:
+  DOCKER_USER_NAME: ${{secrets.DOCKER_USER_NAME}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+  PRODUCT_REPO_NAME: ${{secrets.PRODUCT_REPO_NAME}}
+
 jobs:
   scan:
     name: Security Scan
@@ -19,32 +24,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: 'us-east-1'
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-        with:
-          mask-password: 'true'
-          
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: latest
-          REPOSITORY: ctse-product-service
+      - name: Set up Docker
+        uses: docker-practice/actions-setup-docker@master
+      - name: Docker login
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
+          docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
+      - name: Build product service docker image
+        run: |
           cd product_service
-          docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT      
+          docker build . --file Dockerfile --tag $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
+      - name: Push user service docker image
+        run: docker push $DOCKER_USER_NAME/$PRODUCT_REPO_NAME    
 
       - name: Run Docker Scout security scan
         id: docker-scout
