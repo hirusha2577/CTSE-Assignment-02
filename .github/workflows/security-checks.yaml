@@ -10,22 +10,25 @@ env:
 jobs:
 
   oast_npm_audit:
-    runs-on: buntu-latest
+    name: NPM Audit
+    runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-      - name: Set up Node js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-      
-      - run: npm install
-      - run: npm audit --json | tee npm_audit_report.json
-
-      - uses: actions/upload-artifact@v2
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+    - name: Install dependencies
+      run: npm install
+      working-directory: product_service
+    - name: Run npm audit
+      run: npm audit --json | tee npm_audit_report.json
+      working-directory: product_service
+    - uses: actions/upload-artifact@v2
         with:
           name: nmp_audit
-          path: npm_audit_report.json
+          path: npm_audit_report.json      
 
 
   scan:
