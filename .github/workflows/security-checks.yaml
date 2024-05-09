@@ -31,7 +31,7 @@ jobs:
         name: nmp_audit
         path: npm_audit_report.json      
 
-  scan:
+  scan-gitleaks:
     name: Gitleaks security scan
     runs-on: ubuntu-latest
     steps:
@@ -44,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
-  scan:
+  scan-dockerscout:
     name: Docker Scout security scan
     runs-on: ubuntu-latest
     steps:    
