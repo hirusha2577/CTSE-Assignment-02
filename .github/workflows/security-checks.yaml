@@ -23,12 +23,12 @@ jobs:
       run: npm install
     - name: Run npm audit
       run: npm audit --json | tee npm_audit_report.json
-    - name: NPM Abdit report  
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: nmp_audit
-        path: npm_audit_report.json      
+    # - name: NPM Abdit report  
+    #   uses: actions/upload-artifact@v3
+    #   if: always()
+    #   with:
+    #     name: nmp_audit
+    #     path: npm_audit_report.json      
 
   scan-gitleaks:
     name: Gitleaks security scan
@@ -80,5 +80,7 @@ jobs:
         with:
           name: docker-scout-findings
           path: scout-report.sarif
+          name: nmp_audit
+          path: npm_audit_report.json  
 
 
