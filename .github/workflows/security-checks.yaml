@@ -26,9 +26,9 @@ jobs:
       run: npm audit --json | tee npm_audit_report.json
       working-directory: product_service
     - uses: actions/upload-artifact@v2
-        with:
-          name: nmp_audit
-          path: npm_audit_report.json      
+      with:
+        name: nmp_audit
+        path: npm_audit_report.json      
 
 
   scan:
