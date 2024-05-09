@@ -43,43 +43,43 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
-  # scan-dockerscout:
-  #   name: Docker Scout security scan
-  #   runs-on: ubuntu-latest
-  #   steps:    
-  #     - name: Check out code
-  #       uses: actions/checkout@v3
+  scan-dockerscout:
+    name: Docker Scout security scan
+    runs-on: ubuntu-latest
+    steps:    
+      - name: Check out code
+        uses: actions/checkout@v3
 
-  #     - name: Set up Docker
-  #       uses: docker-practice/actions-setup-docker@master
-  #     - name: Docker login
-  #       run: |
-  #         docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
-  #     - name: Build product service docker image
-  #       run: |
-  #         cd product_service
-  #         docker build . --file Dockerfile --tag $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
-  #     - name: Push product service docker image
-  #       run: docker push $DOCKER_USER_NAME/$PRODUCT_REPO_NAME    
+      - name: Set up Docker
+        uses: docker-practice/actions-setup-docker@master
+      - name: Docker login
+        run: |
+          docker login -u $DOCKER_USER_NAME -p $DOCKER_PASSWORD
+      - name: Build product service docker image
+        run: |
+          cd product_service
+          docker build . --file Dockerfile --tag $DOCKER_USER_NAME/$PRODUCT_REPO_NAME
+      - name: Push product service docker image
+        run: docker push $DOCKER_USER_NAME/$PRODUCT_REPO_NAME    
 
-  #     - name: Run Docker Scout security scan
-  #       id: docker-scout
-  #       uses: docker/scout-action@v1
-  #       with:
-  #         command: quickview,cves,recommendations
-  #         only-severities: critical,high
-  #         sarif-file: scout-report.sarif
-  #         to-latest: true
-  #         ignore-base: true
-  #         ignore-unchanged: true
-  #         only-fixed: true
+      - name: Run Docker Scout security scan
+        id: docker-scout
+        uses: docker/scout-action@v1
+        with:
+          command: quickview,cves,recommendations
+          only-severities: critical,high
+          sarif-file: scout-report.sarif
+          to-latest: true
+          ignore-base: true
+          ignore-unchanged: true
+          only-fixed: true
 
-  #     - name: Upload Docker Scout report
-  #       uses: actions/upload-artifact@v3
-  #       if: always()
-  #       with:
-  #         name: docker-scout-findings
-  #         path: scout-report.sarif
+      - name: Upload Docker Scout report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: docker-scout-findings
+          path: scout-report.sarif
 
 
 
