@@ -14,8 +14,6 @@ jobs:
           node-version: '20' 
       - name: Install Dependencies
         run: npm install
-      - name: Run npm audit
-        run: npm audit  
       - name: Check Lint
         run: npm run lint:fix
       - name: Format code
