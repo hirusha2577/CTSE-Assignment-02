@@ -1,0 +1,45 @@
+name: Security Checks
+
+on: [push, pull_request]
+
+jobs:
+  scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Run Docker Scout security scan
+        id: docker-scout
+        uses: docker/scout-action@v1
+        with:
+          command: quickview,cves,recommendations
+          only-severities: critical,high
+          sarif-file: scout-report.sarif
+          to-latest: true
+          ignore-base: true
+          ignore-unchanged: true
+          only-fixed: true
+
+      - name: Upload Docker Scout report
+        uses: actions/upload-artifact@v2
+        with:
+          name: docker-scout-findings
+          path: scout-report.sarif
+
+      - name: Run gitleaks security scan
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: docker-scout-findings
+          path: scout-report.sarif
