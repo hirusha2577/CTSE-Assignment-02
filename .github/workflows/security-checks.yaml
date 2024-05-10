@@ -1,6 +1,6 @@
 name: Security Checks
 
-on: [push, pull_request]
+on: [push]
 
 env:
   DOCKER_USER_NAME: ${{secrets.DOCKER_USER_NAME}}
