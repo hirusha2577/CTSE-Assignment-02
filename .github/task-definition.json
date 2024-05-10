@@ -1,9 +1,9 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:019295414679:task-definition/ctse-task-definition-new:1",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:456538404106:task-definition/ctse-task-definition:1",
   "containerDefinitions": [
     {
       "name": "ctse-product-service-container",
-      "image": "019295414679.dkr.ecr.us-east-1.amazonaws.com/ctse-product-service:latest",
+      "image": "456538404106.dkr.ecr.us-east-1.amazonaws.com/ctse-product-service:latest",
       "cpu": 0,
       "portMappings": [
         {
@@ -33,7 +33,7 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-create-group": "true",
-          "awslogs-group": "/ecs/ctse-task-definition-new",
+          "awslogs-group": "/ecs/ctse-task-definition",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         },
@@ -42,9 +42,9 @@
       "systemControls": []
     }
   ],
-  "family": "ctse-task-definition-new",
-  "taskRoleArn": "arn:aws:iam::019295414679:role/ecs-cutom-task-role",
-  "executionRoleArn": "arn:aws:iam::019295414679:role/ecsTaskExecutionRole",
+  "family": "ctse-task-definition",
+  "taskRoleArn": "arn:aws:iam::456538404106:role/ctse-ecs-task-role",
+  "executionRoleArn": "arn:aws:iam::456538404106:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
   "revision": 1,
   "volumes": [],
@@ -87,7 +87,7 @@
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"
   },
-  "registeredAt": "2024-05-10T17:26:11.147Z",
-  "registeredBy": "arn:aws:iam::019295414679:root",
+  "registeredAt": "2024-05-10T18:22:49.046Z",
+  "registeredBy": "arn:aws:iam::456538404106:root",
   "tags": []
 }
