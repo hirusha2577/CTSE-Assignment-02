@@ -1,46 +1,46 @@
 {
   "taskDefinitionArn": "arn:aws:ecs:us-east-1:019295414679:task-definition/ctese-task-definition-2:1",
   "containerDefinitions": [
-      {
-          "name": "ctse-product-service-container",
-          "image": "019295414679.dkr.ecr.us-east-1.amazonaws.com/ctse-product-service:latest",
-          "cpu": 0,
-          "portMappings": [
-              {
-                  "name": "ctse-container-port",
-                  "containerPort": 8082,
-                  "hostPort": 8082,
-                  "protocol": "tcp",
-                  "appProtocol": "http"
-              }
-          ],
-          "essential": true,
-          "environment": [
-              {
-                  "name": "PORT",
-                  "value": "8082"
-              },
-              {
-                  "name": "MONGO_DB_URL",
-                  "value": "mongodb+srv://hirusha:hirusha@e-commerce-system.zfvw1fj.mongodb.net/?retryWrites=true&w=majority"
-              }
-          ],
-          "environmentFiles": [],
-          "mountPoints": [],
-          "volumesFrom": [],
-          "ulimits": [],
-          "logConfiguration": {
-              "logDriver": "awslogs",
-              "options": {
-                  "awslogs-create-group": "true",
-                  "awslogs-group": "/ecs/ctese-task-definition-2",
-                  "awslogs-region": "us-east-1",
-                  "awslogs-stream-prefix": "ecs"
-              },
-              "secretOptions": []
-          },
-          "systemControls": []
-      }
+    {
+      "name": "ctse-product-service-container",
+      "image": "019295414679.dkr.ecr.us-east-1.amazonaws.com/ctse-product-service:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "ctse-container-port",
+          "containerPort": 8082,
+          "hostPort": 8082,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "PORT",
+          "value": "8082"
+        },
+        {
+          "name": "MONGO_DB_URL",
+          "value": "mongodb+srv://hirusha:hirusha@e-commerce-system.zfvw1fj.mongodb.net/?retryWrites=true&w=majority"
+        }
+      ],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "ulimits": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/ctese-task-definition-2",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "systemControls": []
+    }
   ],
   "family": "ctese-task-definition-2",
   "taskRoleArn": "arn:aws:iam::019295414679:role/ecs-cutom-task-role",
@@ -50,46 +50,42 @@
   "volumes": [],
   "status": "ACTIVE",
   "requiresAttributes": [
-      {
-          "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-      },
-      {
-          "name": "ecs.capability.execution-role-awslogs"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.ecr-auth"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.task-iam-role"
-      },
-      {
-          "name": "ecs.capability.execution-role-ecr-pull"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-      },
-      {
-          "name": "ecs.capability.task-eni"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
-      }
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+    }
   ],
   "placementConstraints": [],
-  "compatibilities": [
-      "EC2"
-  ],
-  "requiresCompatibilities": [
-      "EC2"
-  ],
+  "compatibilities": ["EC2"],
+  "requiresCompatibilities": ["EC2"],
   "cpu": "2048",
   "memory": "2048",
   "runtimePlatform": {
-      "cpuArchitecture": "X86_64",
-      "operatingSystemFamily": "LINUX"
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
   },
   "registeredAt": "2024-05-10T16:27:39.925Z",
   "registeredBy": "arn:aws:iam::019295414679:root",
