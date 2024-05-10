@@ -70,7 +70,7 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
-    this.app.use((err, req, res, next) => { // Global error handler
+    this.app.use((err, res) => { // Global error handler
       console.error(err);
       res.status(500).send('Something broke!');
     });
