@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 // Config
-import { base2URL } from '../config';
+import { productURL } from '../config';
 
 export const addProduct = async (details) => {
     try {
-    const { data } = await axios.post(base2URL + '/product', details);
+    const { data } = await axios.post(productURL + '/product', details);
     return data;
     } catch (error) {
     console.error('An error occurred:', error);
@@ -15,7 +15,7 @@ export const addProduct = async (details) => {
 
 export const getAllProduct = async () => {
     try {
-    const { data } = await axios.get(base2URL + '/product');
+    const { data } = await axios.get(productURL + '/product');
     return data;
     } catch (error) {
     console.error('An error occurred:', error);
@@ -25,7 +25,7 @@ export const getAllProduct = async () => {
 
 export const getSelectedProducts = async (categoryId,subCategoryId) => {
     try {
-    const { data } = await axios.get(base2URL + '/product//'+categoryId+'/'+subCategoryId);
+    const { data } = await axios.get(productURL + '/product//'+categoryId+'/'+subCategoryId);
     return data;
     } catch (error) {
     console.error('An error occurred:', error);

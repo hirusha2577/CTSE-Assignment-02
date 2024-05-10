@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 // Config
-import { baseURL } from '../config';
+import { categoryURL } from '../config';
 
 export const addCategory = async (details) => {
     try{
-    const { data } = await axios.post(baseURL + '/category', details);
+    const { data } = await axios.post(categoryURL + '/category', details);
     return data;
     } catch (error) {
     console.error('An error occurred:', error);
@@ -15,7 +15,7 @@ export const addCategory = async (details) => {
 
 export const getAllCategories = async () => {
     try{
-    const { data } = await axios.get(baseURL + '/category');
+    const { data } = await axios.get(categoryURL + '/category');
     return data;
     } catch (error) {
     console.error('An error occurred:', error);
@@ -25,7 +25,7 @@ export const getAllCategories = async () => {
 
 export const deleteCategoryData = async (id) => {
     try{
-    const { data } = await axios.delete(baseURL + '/category/'+id);
+    const { data } = await axios.delete(categoryURL + '/category/'+id);
     return data;
     } catch (error) {
     console.error('An error occurred:', error);
@@ -35,7 +35,7 @@ export const deleteCategoryData = async (id) => {
 
 export const editCategoryData = async (id,details) => {
     try{
-    const { data } = await axios.put(baseURL + '/category/'+id, details);
+    const { data } = await axios.put(categoryURL + '/category/'+id, details);
     return data;
     } catch (error) {
     console.error('An error occurred:', error);
@@ -45,7 +45,7 @@ export const editCategoryData = async (id,details) => {
 
 export const getSelectedCatagory = async (id) => {
     try{
-    const { data } = await axios.get(baseURL + '/category/'+id);
+    const { data } = await axios.get(categoryURL + '/category/'+id);
     return data;
     } catch (error) {
     console.error('An error occurred:', error);
