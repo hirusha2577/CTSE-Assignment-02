@@ -1,5 +1,5 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:019295414679:task-definition/ctese-task-definition-2:1",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:019295414679:task-definition/ctse-task-definition-new:1",
   "containerDefinitions": [
     {
       "name": "ctse-product-service-container",
@@ -33,7 +33,7 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-create-group": "true",
-          "awslogs-group": "/ecs/ctese-task-definition-2",
+          "awslogs-group": "/ecs/ctse-task-definition-new",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         },
@@ -42,7 +42,7 @@
       "systemControls": []
     }
   ],
-  "family": "ctese-task-definition-2",
+  "family": "ctse-task-definition-new",
   "taskRoleArn": "arn:aws:iam::019295414679:role/ecs-cutom-task-role",
   "executionRoleArn": "arn:aws:iam::019295414679:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
@@ -79,15 +79,15 @@
     }
   ],
   "placementConstraints": [],
-  "compatibilities": ["EC2"],
-  "requiresCompatibilities": ["EC2"],
-  "cpu": "2048",
+  "compatibilities": ["EC2", "FARGATE"],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
   "memory": "2048",
   "runtimePlatform": {
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"
   },
-  "registeredAt": "2024-05-10T16:27:39.925Z",
+  "registeredAt": "2024-05-10T17:26:11.147Z",
   "registeredBy": "arn:aws:iam::019295414679:root",
   "tags": []
 }
