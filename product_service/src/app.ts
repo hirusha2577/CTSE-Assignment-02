@@ -21,7 +21,7 @@ class App {
   constructor(routes: Routes[]) {
     this.app = express();
     this.port = Number(process.env.PORT) || 8082;
-    this.hostName = '127.0.0.1';
+    this.hostName = '0.0.0.0';
     this.url = process.env.MONGO_DB_URL || '';
 
     this.connectToDatabase();
