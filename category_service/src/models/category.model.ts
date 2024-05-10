@@ -5,8 +5,8 @@ const categorySchema: Schema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true
-  }
+    unique: true,
+  },
 });
 
 const categoryModel = model<Category & Document>('Category', categorySchema);

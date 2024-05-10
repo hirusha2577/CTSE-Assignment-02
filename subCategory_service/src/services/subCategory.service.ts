@@ -5,7 +5,6 @@ import subCategoryModel from '../models/subCategory.model';
 import { isEmpty } from '../utils/util';
 
 class SubCategoryService {
-
   public subCategories = subCategoryModel;
 
   public async findAllSubCategories(): Promise<SubCategory[]> {
@@ -19,7 +18,7 @@ class SubCategoryService {
   }
 
   public async findSubCategoryById(subCategoryId: string): Promise<SubCategory> {
-    if (isEmpty(subCategoryId)) throw new HttpException(400, "Sub-category ID is empty");
+    if (isEmpty(subCategoryId)) throw new HttpException(400, 'Sub-category ID is empty');
 
     const findSubCategory: SubCategory | null = await this.subCategories.findOne({ _id: subCategoryId });
     if (!findSubCategory) throw new HttpException(409, "Sub-category doesn't exist");
@@ -28,16 +27,20 @@ class SubCategoryService {
   }
 
   public async createSubCategory(subCategoryData: CreateSubCategoryDto): Promise<SubCategory> {
-    if (isEmpty(subCategoryData)) throw new HttpException(400, "Sub-category data is empty");
+    if (isEmpty(subCategoryData)) throw new HttpException(400, 'Sub-category data is empty');
 
     const createSubCategoryData: SubCategory = await this.subCategories.create(subCategoryData);
     return createSubCategoryData;
   }
 
   public async updateSubCategory(subCategoryId: string, subCategoryData: CreateSubCategoryDto): Promise<SubCategory> {
-    if (isEmpty(subCategoryData)) throw new HttpException(400, "Sub-category data is empty");
+    if (isEmpty(subCategoryData)) throw new HttpException(400, 'Sub-category data is empty');
 
-    const updateSubCategoryById: SubCategory | null = await this.subCategories.findByIdAndUpdate(subCategoryId, subCategoryData, { new: true });
+    const updateSubCategoryById: SubCategory | null = await this.subCategories.findByIdAndUpdate(
+      subCategoryId,
+      subCategoryData,
+      { new: true },
+    );
     if (!updateSubCategoryById) throw new HttpException(409, "Sub-category doesn't exist");
 
     return updateSubCategoryById;

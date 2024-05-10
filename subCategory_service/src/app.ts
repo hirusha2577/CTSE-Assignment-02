@@ -13,7 +13,6 @@ import dotenv from 'dotenv';
 // Load environment variables from .env.local
 dotenv.config({ path: '.env.local' });
 
-
 class App {
   public app: express.Application;
   public hostName: string;
@@ -34,11 +33,13 @@ class App {
   }
 
   public listen() {
-    this.app.listen(this.port, this.hostName, () => {
-      console.log(`🚀 Server is started at http://${this.hostName}:${this.port}`);
-    }).on('error', (err) => {
-      console.error('Error starting server:', err);
-    });
+    this.app
+      .listen(this.port, this.hostName, () => {
+        console.log(`🚀 Server is started at http://${this.hostName}:${this.port}`);
+      })
+      .on('error', (err) => {
+        console.error('Error starting server:', err);
+      });
   }
 
   public getServer() {
@@ -55,12 +56,14 @@ class App {
   private connectToDatabase() {
     set('strictQuery', true);
     connect(this.url, {
-      socketTimeoutMS: 30000 
-    }).then(() => {
-      console.log(`🚀 Mongo_db connection success!`);
-    }).catch(error => {
-      console.error('Error connecting to MongoDB', error);
-    });
+      socketTimeoutMS: 30000,
+    })
+      .then(() => {
+        console.log(`🚀 Mongo_db connection success!`);
+      })
+      .catch((error) => {
+        console.error('Error connecting to MongoDB', error);
+      });
   }
 
   private initializeMiddlewares() {
@@ -71,7 +74,8 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
-    this.app.use((err, res) => { // Global error handler
+    this.app.use((err, res) => {
+      // Global error handler
       console.error(err);
       res.status(500).send('Something broke!');
     });

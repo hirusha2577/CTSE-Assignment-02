@@ -4,35 +4,31 @@ import axios from 'axios';
 import { productURL } from '../config';
 
 export const addProduct = async (details) => {
-    try {
+  try {
     const { data } = await axios.post(productURL + '/product', details);
     return data;
-    } catch (error) {
+  } catch (error) {
     console.error('An error occurred:', error);
     throw error;
   }
-}
+};
 
 export const getAllProduct = async () => {
-    try {
+  try {
     const { data } = await axios.get(productURL + '/product');
     return data;
-    } catch (error) {
+  } catch (error) {
     console.error('An error occurred:', error);
     throw error;
   }
-}
+};
 
-export const getSelectedProducts = async (categoryId,subCategoryId) => {
-    try {
-    const { data } = await axios.get(productURL + '/product//'+categoryId+'/'+subCategoryId);
+export const getSelectedProducts = async (categoryId, subCategoryId) => {
+  try {
+    const { data } = await axios.get(productURL + '/product//' + categoryId + '/' + subCategoryId);
     return data;
-    } catch (error) {
+  } catch (error) {
     console.error('An error occurred:', error);
     throw error;
   }
-}
-
-
-
-
+};

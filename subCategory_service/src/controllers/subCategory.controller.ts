@@ -53,7 +53,10 @@ class SubCategoryController {
     try {
       const subCategoryId: string = req.params.id;
       const subCategoryData: CreateSubCategoryDto = req.body;
-      const updateSubCategoryData: SubCategory = await this.subCategoryService.updateSubCategory(subCategoryId, subCategoryData);
+      const updateSubCategoryData: SubCategory = await this.subCategoryService.updateSubCategory(
+        subCategoryId,
+        subCategoryData,
+      );
 
       res.status(200).json({ data: updateSubCategoryData, message: 'updated' });
     } catch (error) {

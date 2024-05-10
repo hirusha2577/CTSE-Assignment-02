@@ -17,8 +17,16 @@ class SubCategoryRoute implements Routes {
     this.router.get(`${this.path}`, this.subCategoryController.getSubCategories);
     this.router.get(`${this.path}/:id`, this.subCategoryController.getSubCategoryByCategoryId);
     this.router.get(`${this.path}//:id`, this.subCategoryController.getSubCategoryById);
-    this.router.post(`${this.path}`, validationMiddleware(CreateSubCategoryDto, 'body'), this.subCategoryController.createSubCategory);
-    this.router.put(`${this.path}/:id`, validationMiddleware(CreateSubCategoryDto, 'body', true), this.subCategoryController.updateSubCategory);
+    this.router.post(
+      `${this.path}`,
+      validationMiddleware(CreateSubCategoryDto, 'body'),
+      this.subCategoryController.createSubCategory,
+    );
+    this.router.put(
+      `${this.path}/:id`,
+      validationMiddleware(CreateSubCategoryDto, 'body', true),
+      this.subCategoryController.updateSubCategory,
+    );
     this.router.delete(`${this.path}/:id`, this.subCategoryController.deleteSubCategory);
   }
 }

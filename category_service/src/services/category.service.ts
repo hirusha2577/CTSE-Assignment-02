@@ -13,7 +13,7 @@ class CategoryService {
   }
 
   public async findCategoryById(categoryId: string): Promise<Category> {
-    if (isEmpty(categoryId)) throw new HttpException(400, "Category ID is empty");
+    if (isEmpty(categoryId)) throw new HttpException(400, 'Category ID is empty');
 
     const findCategory: Category | null = await this.categories.findOne({ _id: categoryId });
     if (!findCategory) throw new HttpException(409, "Category doesn't exist");
@@ -22,7 +22,7 @@ class CategoryService {
   }
 
   public async createCategory(categoryData: CreateCategoryDto): Promise<Category> {
-    if (isEmpty(categoryData)) throw new HttpException(400, "Category data is empty");
+    if (isEmpty(categoryData)) throw new HttpException(400, 'Category data is empty');
 
     const findCategory: Category | null = await this.categories.findOne({ name: categoryData.name });
     if (findCategory) throw new HttpException(409, `Category '${categoryData.name}' already exists`);
@@ -32,12 +32,15 @@ class CategoryService {
   }
 
   public async updateCategory(categoryId: string, categoryData: CreateCategoryDto): Promise<Category> {
-    if (isEmpty(categoryData)) throw new HttpException(400, "Category data is empty");
+    if (isEmpty(categoryData)) throw new HttpException(400, 'Category data is empty');
 
     const findCategory: Category | null = await this.categories.findOne({ name: categoryData.name });
-    if (findCategory && findCategory._id != categoryId) throw new HttpException(409, `Category '${categoryData.name}' already exists`);
+    if (findCategory && findCategory._id != categoryId)
+      throw new HttpException(409, `Category '${categoryData.name}' already exists`);
 
-    const updateCategoryById: Category | null = await this.categories.findByIdAndUpdate(categoryId, categoryData, { new: true });
+    const updateCategoryById: Category | null = await this.categories.findByIdAndUpdate(categoryId, categoryData, {
+      new: true,
+    });
     if (!updateCategoryById) throw new HttpException(409, "Category doesn't exist");
 
     return updateCategoryById;
