@@ -19,34 +19,33 @@ class SubCategoryService {
   }
 
   public async findSubCategoryById(subCategoryId: string): Promise<SubCategory> {
-    if (isEmpty(subCategoryId)) throw new HttpException(400, "expenseId is empty");
+    if (isEmpty(subCategoryId)) throw new HttpException(400, "Sub-category ID is empty");
 
-    const findSubCategory: SubCategory = await this.subCategories.findOne({ _id: subCategoryId });
-    if (!findSubCategory) throw new HttpException(409, "Expense doesn't exist");
+    const findSubCategory: SubCategory | null = await this.subCategories.findOne({ _id: subCategoryId });
+    if (!findSubCategory) throw new HttpException(409, "Sub-category doesn't exist");
 
     return findSubCategory;
   }
 
   public async createSubCategory(subCategoryData: CreateSubCategoryDto): Promise<SubCategory> {
-    if (isEmpty(subCategoryData)) throw new HttpException(400, "expenseData is empty");
+    if (isEmpty(subCategoryData)) throw new HttpException(400, "Sub-category data is empty");
 
     const createSubCategoryData: SubCategory = await this.subCategories.create(subCategoryData);
-
     return createSubCategoryData;
   }
 
   public async updateSubCategory(subCategoryId: string, subCategoryData: CreateSubCategoryDto): Promise<SubCategory> {
-    if (isEmpty(subCategoryData)) throw new HttpException(400, "expenseData is empty");
+    if (isEmpty(subCategoryData)) throw new HttpException(400, "Sub-category data is empty");
 
-    const updateSubCategoryById: SubCategory = await this.subCategories.findByIdAndUpdate(subCategoryId,subCategoryData);
-    if (!updateSubCategoryById) throw new HttpException(409, "Expense doesn't exist");
+    const updateSubCategoryById: SubCategory | null = await this.subCategories.findByIdAndUpdate(subCategoryId, subCategoryData, { new: true });
+    if (!updateSubCategoryById) throw new HttpException(409, "Sub-category doesn't exist");
 
     return updateSubCategoryById;
   }
 
   public async deleteSubCategory(subCategoryId: string): Promise<SubCategory> {
-    const deleteSubCategoryById: SubCategory = await this.subCategories.findByIdAndDelete(subCategoryId);
-    if (!deleteSubCategoryById) throw new HttpException(409, "Expense doesn't exist");
+    const deleteSubCategoryById: SubCategory | null = await this.subCategories.findByIdAndDelete(subCategoryId);
+    if (!deleteSubCategoryById) throw new HttpException(409, "Sub-category doesn't exist");
 
     return deleteSubCategoryById;
   }

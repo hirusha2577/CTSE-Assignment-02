@@ -10,7 +10,8 @@ import swaggerUi from 'swagger-ui-express';
 import type { Routes } from './interfaces/routes.interface';
 import dotenv from 'dotenv';
 
-dotenv.config();
+// Load environment variables from .env.local
+dotenv.config({ path: '.env.local' });
 
 class App {
   public app: express.Application;
@@ -20,6 +21,7 @@ class App {
 
   constructor(routes: Routes[]) {
     this.app = express();
+    this.validateEnv(); // Validate environment variables
     this.port = Number(process.env.PORT) || 8082;
     this.hostName = '127.0.0.1';
     this.url = process.env.MONGO_DB_URL || '';
@@ -32,10 +34,9 @@ class App {
 
   public listen() {
     this.app.listen(this.port, this.hostName, () => {
-      console.log(`-----------------------------------------------`);
-      console.log(`-----------------------------------------------`);
       console.log(`🚀 Server is started at http://${this.hostName}:${this.port}`);
-      console.log(`-----------------------------------------------`);
+    }).on('error', (err) => {
+      console.error('Error starting server:', err);
     });
   }
 
@@ -43,15 +44,21 @@ class App {
     return this.app;
   }
 
+  private validateEnv() {
+    if (!process.env.PORT || !process.env.MONGO_DB_URL) {
+      console.error('Critical environment variables are missing');
+      process.exit(1);
+    }
+  }
+
   private connectToDatabase() {
     set('strictQuery', true);
     connect(this.url, {
-      socketTimeoutMS: 30000 // 30 seconds
-    },() => {
-      console.log(`-----------------------------------------------`);
+      socketTimeoutMS: 30000 
+    }).then(() => {
       console.log(`🚀 Mongo_db connection success!`);
-      console.log(`-----------------------------------------------`);
-      console.log(`-----------------------------------------------`);
+    }).catch(error => {
+      console.error('Error connecting to MongoDB', error);
     });
   }
 
@@ -63,6 +70,10 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
+    this.app.use((err, req, res, next) => { // Global error handler
+      console.error(err);
+      res.status(500).send('Something broke!');
+    });
   }
 
   private initializeRoutes(routes: Routes[]) {
