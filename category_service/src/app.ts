@@ -21,9 +21,9 @@ class App {
 
   constructor(routes: Routes[]) {
     this.app = express();
-    this.validateEnv(); // Validate environment variables
-    this.port = Number(process.env.PORT) || 8082;
-    this.hostName = '0.0.0.0';
+    this.validateEnv();
+    this.port = Number(process.env.PORT) || 8080;
+    this.hostName = '127.0.0.1';
     this.url = process.env.MONGO_DB_URL || '';
 
     this.connectToDatabase();
@@ -75,6 +75,7 @@ class App {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
     this.app.use((err, res) => {
+      // Global error handler
       console.error(err);
       res.status(500).send('Something broke!');
     });
